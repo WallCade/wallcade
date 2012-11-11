@@ -1,0 +1,6 @@
+advmame $1 &
+echo $!
+sleep 5
+xdotool search --all --onlyvisible --name "AdvanceMAME" windowmove 15 400
+
+
