@@ -1,35 +1,22 @@
-String stringOne="0123456789abcdefghijklmno";
-char charBuf[37];
-
 void setup(){
-  for(int i=8; i<33; i++){
-    pinMode(i,INPUT);
+  for(int i=4; i<36; i++){
+    pinMode(i,INPUT); // set all button pins to input
   };
-  pinMode(4, INPUT);
-  pinMode(5, INPUT);
   pinMode(2,OUTPUT);
-  digitalWrite(2,HIGH);
+  digitalWrite(2,HIGH); //3v pin for buttons.  not nessecary but used for convenence
   Serial.begin(9600);
   Serial1.begin(9600);
-  stringOne.toCharArray(charBuf, 37);
 }
 
 void loop(){
-  for(int i=8; i<33; i++){
-    if(!digitalRead(i)){
-      int j=i-8;
-      Serial.print(charBuf[j]);
-      Serial1.print(charBuf[j]);
+  for(int i=4; i<36; i++){ // loop through all the buttons
+    if(digitalRead(i)){
+      Serial1.write(i+50); //tell teensy2 to press the button by adding 50
+      Serial.write(i+50);
+    }else{
+      Serial1.write(i); //tell teensy 2 to release the button by leaving just the button number
+      Serial.write(i);
     }
   }
-  if(!digitalRead(4)){
-    Serial.print('p');
-    Serial1.print('p');
-  }
-  if(!digitalRead(5)){
-    Serial.print('q');
-    Serial1.print('q');
-  }
-  delay(90);
 }
 
